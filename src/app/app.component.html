@@ -1,8 +1,45 @@
-<mat-toolbar color = 'primary' class = "navbar">
-  <span class = 'navbar-brand'>E-commerce</span>
-  <span class = 'spacer'></span>
-  <button mat-button routerLink="/signup" routerLinkActive="activate">Signup</button>
-  <button mat-button routerLink="/login" routerLinkActive="activate">Login</button>
-</mat-toolbar>
+<header>
+  <div *ngIf="!isAdminLoggiedIn && !isCustomerLoggedIn">
+    <mat-toolbar color="primary" class="navbar">
+      <button class="navbar-brand" mat-button routerLink="" routerLinkActive="activate">E-commerce</button>
+      <span class="spacer"></span>
+      <button mat-button><a href="#contact" style="text-decoration: none; color: white;">Contact</a></button>
+      <button mat-button routerLink="/signup" routerLinkActive="activate">Signup</button>
+      <button mat-button routerLink="/signin" routerLinkActive="activate">Signin</button>
+    </mat-toolbar>
+  </div>
 
-<router-outlet></router-outlet>
+  <div *ngIf="isAdminLoggiedIn">
+    <mat-toolbar color="primary" class="navbar">
+      <button class="navbar-brand" mat-button routerLink="/admin" routerLinkActive="activate">Welcome Admin</button>
+      <span class="spacer"></span>
+      <button mat-button routerLink="/admin/dashboard" routerLinkActive="activate">Dashboard</button>
+      <button mat-button routerLink="/admin/analytics" routerLinkActive="activate">Analytics</button>
+      <button mat-button routerLink="/admin/category" routerLinkActive="activate">Category</button>
+      <button mat-button (click)="logout()" routerLinkActive="activate">Signout</button>
+    </mat-toolbar>
+  </div>
+
+  <div *ngIf="isCustomerLoggedIn">
+    <mat-toolbar color="primary" class="navbar">
+      <button class="navbar-brand" mat-button routerLink="/customer" routerLinkActive="activate">Welcome {{ name }}</button>
+      <span class="spacer"></span>
+      <button mat-button routerLink="/customer/dashboard" routerLinkActive="activate">Dashboard</button>
+      <button mat-button (click)="logout()" routerLinkActive="activate">Signout</button>
+    </mat-toolbar>
+  </div>
+</header>
+
+<body>
+  <router-outlet></router-outlet>
+</body>
+
+<footer>
+  <mat-toolbar color="primary" class="footer" id="contact">
+    <button mat-button>Email: <a href="mailto:admin@gmail.com"
+        style="text-decoration: none; color: white;">admin&#64;gmail.com</a></button>
+    <button mat-button>Tel: <a href="tel:0327859829"
+        style="text-decoration: none; color: white;">0327859829</a></button>
+    <button mat-button>Address: Hanoi, Vietnam</button>
+  </mat-toolbar>
+</footer>

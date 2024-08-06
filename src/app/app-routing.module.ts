@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './auth/component/login/login.component';
+import { SignupComponent } from './auth/component/signup/signup.component';
+import { StartUpComponent } from './auth/component/start-up/start-up.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
+  { path: '', component: StartUpComponent},
+  { path: 'signin', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-  { path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule) }
+  { path: 'admin', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) },
+  { path: 'customer', loadChildren: () => import('./modules/customer/customer.module').then(m => m.CustomerModule) }
 ];
 
 @NgModule({

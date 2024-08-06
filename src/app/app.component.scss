@@ -1,4 +1,38 @@
 .navbar {
-    background-color: #8ecae6;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background-color: #00c9e3;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background-color: #00d1cb;
+}
+
+.navbar-brand {
+    font-size: 30px;
+    font-weight: 500;
+    margin-right: 16px;
     color: white;
+}
+
+.spacer {
+    flex: 1;
+}
+
+button {
+    color: white !important;
+    text-transform: uppercase;
+    margin-left: 8px;
+}
+
+button.active {
+    font-weight: 500;
+}
+
+.custom-toolbar {
+    background-color: #ff0000;
 }
