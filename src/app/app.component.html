@@ -16,6 +16,10 @@
       <button mat-button routerLink="/admin/dashboard" routerLinkActive="activate">Dashboard</button>
       <button mat-button routerLink="/admin/analytics" routerLinkActive="activate">Analytics</button>
       <button mat-button routerLink="/admin/category" routerLinkActive="activate">Category</button>
+      <button mat-button routerLink="/admin/product" routerLinkActive="activate">Products</button>
+      <button mat-button routerLink="/admin/order" routerLinkActive="activate">Orders</button>
+      <button mat-button routerLink="/admin/post-coupon" routerLinkActive="activate">Post Coupon</button>
+      <button mat-button routerLink="/admin/coupon" routerLinkActive="activate">Coupons</button>
       <button mat-button (click)="logout()" routerLinkActive="activate">Signout</button>
     </mat-toolbar>
   </div>
@@ -25,6 +29,10 @@
       <button class="navbar-brand" mat-button routerLink="/customer" routerLinkActive="activate">Welcome {{ name }}</button>
       <span class="spacer"></span>
       <button mat-button routerLink="/customer/dashboard" routerLinkActive="activate">Dashboard</button>
+      <button mat-button routerLink="/customer/cart" routerLinkActive="activate">Cart</button>
+      <button mat-button routerLink="/customer/my-order" routerLinkActive="activate">My Orders</button>
+      <button mat-button routerLink="/customer/whislist" routerLinkActive="activate">Whislist</button>
+      <button mat-button routerLink="/customer/profile" routerLinkActive="activate">Profile</button>
       <button mat-button (click)="logout()" routerLinkActive="activate">Signout</button>
     </mat-toolbar>
   </div>

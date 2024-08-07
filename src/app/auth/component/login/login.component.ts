@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
-import { StorageService } from '../../service/storage.service';
+import { AuthService } from '../../service/auth/auth.service';
+import { StorageService } from '../../service/storage/storage.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -47,10 +49,10 @@ export class LoginComponent {
           console.log("this is name from login component:" + user.name)
           if (StorageService.isAdminLoggedIn()) {
             this.snackBar.open('Log in successful.', 'Close', { duration: 5000 });
-            this.router.navigateByUrl("/admin");
+            this.router.navigateByUrl("/admin/dashboard");
           } else if (StorageService.isCustomerLoggedIn()) {
             this.snackBar.open('Log in successful.', 'Close', { duration: 5000 });
-            this.router.navigateByUrl("/customer");
+            this.router.navigateByUrl("/customer/dashboard");
           } else {
             this.snackBar.open('Log in failed. Please try it again!', 'Close', { duration: 5000, panelClass: 'error-snackbar' });
           }
