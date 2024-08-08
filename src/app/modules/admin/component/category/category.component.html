@@ -1,1 +1,27 @@
-<p>category works!</p>
+<div class="container">
+    <mat-card>
+        <mat-card-title>Add Category</mat-card-title>
+        <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" placeholder="Name" required>
+                <mat-error *ngIf="categoryForm.get('name')?.hasError('required')">
+                    This input is required!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Description</mat-label>
+                <input matInput type="text" formControlName="description" placeholder="description" required>
+                <mat-error *ngIf="categoryForm.get('description')?.hasError('required')">
+                    This input is required!
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="categoryForm.invalid">Add
+                Category</button>
+
+        </form>
+    </mat-card>
+</div>

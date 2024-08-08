@@ -2,10 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; // counting from top
-    background-image: url(../Images/Bg3.jpg);
+    height: 100vh;
+    background-image: url("../../../Images/Bg3.jpg");
     background-repeat: no-repeat;
-    // background-position: center;
     background-attachment: fixed;
     background-size: cover;
 }

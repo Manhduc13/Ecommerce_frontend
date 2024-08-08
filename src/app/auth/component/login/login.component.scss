@@ -2,12 +2,11 @@
     display: flex;
     justify-content: center; 
     align-items: center;
-    height: 100vh; // counting from top
-    background-image: url(../Images/Bg3.jpg);
+    height: 100vh;
+    background-image: url("../../../Images/Bg3.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    //background-image: linear-gradient(#00c9e3, #00d1cb);
 }
 
 mat-card {
