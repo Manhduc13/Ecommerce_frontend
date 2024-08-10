@@ -1,9 +1,54 @@
 <div class="container">
-    <div class="info">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis libero delectus aspernatur quisquam cumque veniam minus commodi officia iure magnam adipisci nam consequuntur tempora, ipsa temporibus. Error dolorem laboriosam necessitatibus.
-        Facilis quam dolorem neque provident in libero enim ipsam nihil accusamus rem. Quod praesentium ex eveniet eos nulla commodi beatae assumenda, labore neque at quo ratione unde aliquid iste voluptate.
-        Nostrum distinctio at nam voluptate. Illo accusamus ab repellendus maiores? At possimus voluptates repellat libero nulla exercitationem magnam hic quibusdam necessitatibus quos sunt fugiat beatae, blanditiis esse laudantium suscipit ducimus?
-        Voluptates architecto, reiciendis odio dolore ea laudantium accusamus dolores qui quidem enim impedit rem at tempora ipsa tenetur ratione! Repudiandae, aliquam pariatur architecto dolore hic quisquam ad vitae exercitationem distinctio.
-        Blanditiis perferendis deserunt ea aspernatur, a reiciendis deleniti nulla quia sapiente atque illo repudiandae molestiae est eaque architecto ex quidem? Hic sunt blanditiis autem deserunt molestiae est minus, nisi voluptas?</p>
+
+    <div class="search-form">
+        <form [formGroup]="searchProductForm" (submit)="search()">
+
+            <mat-form-field appearance="outline" class="search-input">
+                <mat-label>Enter keyword to search</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Select a category</mat-label>
+                <mat-select formControlName="category" name="category">
+                    <mat-option *ngFor="let category of listOfCategories"
+                        [value]="category.id">{{category.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button class='search-button' mat-button matSuffix color="primary"
+                [disabled]="searchProductForm.invalid">Search</button>
+
+        </form>
+    </div>
+
+    <div class="search-info" *ngIf="numberItemReturn!=null">
+        <div class="info">There are {{numberItemReturn}} products you might want to see</div>
+        <button class='reset-button' mat-button matSuffix color="primary" (click)="reset()">Reset</button>
+    </div>
+
+    <div class="product-list">
+        <mat-card class="product-card" *ngFor="let product of products">
+            <div class="product-image">
+                <img [src]="product.processedImg" alt="product-image">
+            </div>
+            <div class="product-detail">
+                <h2 class="product-name">{{product.name}}</h2>
+                <p class="product-description">{{product.description}}</p>
+
+                <mat-divider></mat-divider>
+
+                <div class="product-info">
+                    <div class="info-row">
+                        <span class="info-label">Price:</span>
+                        <span class="info-value">{{product.price}}VNĐ</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Category:</span>
+                        <span class="info-value">{{product.category_name}}</span>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
     </div>
 </div>

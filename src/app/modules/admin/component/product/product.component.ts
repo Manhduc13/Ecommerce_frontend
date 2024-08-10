@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from '../../service/admin.service';
+import { AuthService } from '../../../../auth/service/auth/auth.service';
 
 @Component({
   selector: 'app-product',
@@ -20,6 +21,7 @@ export class ProductComponent {
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
+    private authService: AuthService,
     private adminService: AdminService
   ){}
 
@@ -55,7 +57,7 @@ export class ProductComponent {
   }
 
   getAllCategory(){
-    this.adminService.getAllCategory().subscribe(res => {
+    this.authService.getAllCategory().subscribe(res => {
        this.listOfCategories = res;
     })
   }

@@ -1,4 +1,4 @@
-<header>
+<header class="header">
   <div *ngIf="!isAdminLoggiedIn && !isCustomerLoggedIn">
     <mat-toolbar color="primary" class="navbar">
       <button class="navbar-brand" mat-button routerLink="" routerLinkActive="activate">E-commerce</button>
@@ -11,7 +11,7 @@
 
   <div *ngIf="isAdminLoggiedIn">
     <mat-toolbar color="primary" class="navbar">
-      <button class="navbar-brand" mat-button routerLink="/admin" routerLinkActive="activate">Welcome Admin</button>
+      <button class="navbar-brand" mat-button routerLink="/admin/dashboard" routerLinkActive="activate">Welcome Admin</button>
       <span class="spacer"></span>
       <button mat-button routerLink="/admin/dashboard" routerLinkActive="activate">Dashboard</button>
       <button mat-button routerLink="/admin/analytics" routerLinkActive="activate">Analytics</button>
@@ -26,7 +26,7 @@
 
   <div *ngIf="isCustomerLoggedIn">
     <mat-toolbar color="primary" class="navbar">
-      <button class="navbar-brand" mat-button routerLink="/customer" routerLinkActive="activate">Welcome {{ name }}</button>
+      <button class="navbar-brand" mat-button routerLink="/customer/dashboard" routerLinkActive="activate">Welcome {{ name }}</button>
       <span class="spacer"></span>
       <button mat-button routerLink="/customer/dashboard" routerLinkActive="activate">Dashboard</button>
       <button mat-button routerLink="/customer/cart" routerLinkActive="activate">Cart</button>
@@ -43,11 +43,9 @@
 </body>
 
 <footer>
-  <mat-toolbar color="primary" class="footer" id="contact">
-    <button mat-button>Email: <a href="mailto:admin@gmail.com"
-        style="text-decoration: none; color: white;">admin&#64;gmail.com</a></button>
-    <button mat-button>Tel: <a href="tel:0327859829"
-        style="text-decoration: none; color: white;">0327859829</a></button>
-    <button mat-button>Address: Hanoi, Vietnam</button>
+  <mat-toolbar color="primary" class="contact" id="contact">
+    <p>Email: <a href="mailto:admin@gmail.com">admin&#64;gmail.com</a></p>
+    <p>Tel: <a href="tel:0327859829">0327859829</a></p>
+    <p>Address: Hanoi, Vietnam</p>
   </mat-toolbar>
 </footer>
