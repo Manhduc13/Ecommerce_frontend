@@ -3,9 +3,8 @@
     <mat-toolbar color="primary" class="navbar">
       <button class="navbar-brand" mat-button routerLink="" routerLinkActive="activate">E-commerce</button>
       <span class="spacer"></span>
-      <button mat-button><a href="#contact" style="text-decoration: none; color: white;">Contact</a></button>
-      <button mat-button routerLink="/signup" routerLinkActive="activate">Signup</button>
-      <button mat-button routerLink="/signin" routerLinkActive="activate">Signin</button>
+      <button mat-button (click)="openSignupDialog()">Register</button>
+      <button mat-button (click)="openSigninDialog()">Login</button>
     </mat-toolbar>
   </div>
 
@@ -15,12 +14,12 @@
       <span class="spacer"></span>
       <button mat-button routerLink="/admin/dashboard" routerLinkActive="activate">Dashboard</button>
       <button mat-button routerLink="/admin/analytics" routerLinkActive="activate">Analytics</button>
-      <button mat-button routerLink="/admin/category" routerLinkActive="activate">Category</button>
-      <button mat-button routerLink="/admin/product" routerLinkActive="activate">Products</button>
+      <button mat-button (click)="openCategoryDialog()">Post-Category</button>
+      <button mat-button (click)="openProductDialog()">Post-Product</button>
       <button mat-button routerLink="/admin/order" routerLinkActive="activate">Orders</button>
       <button mat-button routerLink="/admin/post-coupon" routerLinkActive="activate">Post Coupon</button>
       <button mat-button routerLink="/admin/coupon" routerLinkActive="activate">Coupons</button>
-      <button mat-button (click)="logout()" routerLinkActive="activate">Signout</button>
+      <button mat-button (click)="logout()" routerLinkActive="activate">Logout</button>
     </mat-toolbar>
   </div>
 
@@ -33,7 +32,7 @@
       <button mat-button routerLink="/customer/my-order" routerLinkActive="activate">My Orders</button>
       <button mat-button routerLink="/customer/whislist" routerLinkActive="activate">Whislist</button>
       <button mat-button routerLink="/customer/profile" routerLinkActive="activate">Profile</button>
-      <button mat-button (click)="logout()" routerLinkActive="activate">Signout</button>
+      <button mat-button (click)="logout()" routerLinkActive="activate">Logout</button>
     </mat-toolbar>
   </div>
 </header>

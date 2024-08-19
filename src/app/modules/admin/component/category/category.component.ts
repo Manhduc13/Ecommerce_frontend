@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from '../../service/admin.service';
-import { AuthService } from '../../../../auth/service/auth/auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-category',
@@ -17,7 +17,8 @@ export class CategoryComponent {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private adminService: AdminService,
-    private router: Router
+    private router: Router,
+    public dialogRef: MatDialogRef<CategoryComponent>
   ) { }
 
   ngOnInit() {
@@ -42,5 +43,9 @@ export class CategoryComponent {
     } else {
       this.categoryForm.markAllAsTouched();
     }
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

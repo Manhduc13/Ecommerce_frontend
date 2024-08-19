@@ -1,22 +1,24 @@
 <div class="container">
 
     <div class="search-form">
-        <form [formGroup]="searchProductForm" (submit)="search()">
+        <form [formGroup]="searchProductForm">
 
             <mat-form-field appearance="outline" class="search-input">
                 <mat-label>Enter keyword to search</mat-label>
-                <input matInput formControlName="name">
+                <input matInput formControlName="productName">
+                <mat-icon matSuffix (click)="search()">search</mat-icon>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline">
                 <mat-label>Select a category</mat-label>
-                <mat-select formControlName="category" name="category">
-                    <mat-option *ngFor="let category of listOfCategories"
-                        [value]="category.id">{{category.name}}</mat-option>
+                <mat-select formControlName="categoryName" name="categoryName">
+                    <mat-option *ngFor="let category of listOfCategories" [value]="category.name">
+                        {{category.name}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <button class='search-button' mat-button matSuffix color="primary"
+            <button class='search-button' mat-button matSuffix color="primary" (click)="search()"
                 [disabled]="searchProductForm.invalid">Search</button>
 
         </form>

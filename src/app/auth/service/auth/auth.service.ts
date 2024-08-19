@@ -33,13 +33,8 @@ export class AuthService {
     return this.http.get(url);
   }
 
-  findAllByName(name:any): Observable<any> {
-    const url = `${BASE_URL}/search/${name}`;
-    return this.http.get(url);
+  search(searchProductRequest: any):Observable<any> {
+    const url = `${BASE_URL}/search`;
+    return this.http.post(url,searchProductRequest);
   }
-
-  // findProduct(searchProductRequest: any):Observable<any> {
-  //   const url = `${BASE_URL}/auth/search/${name}`;
-  //   return this.http.get(url);
-  // }
 }

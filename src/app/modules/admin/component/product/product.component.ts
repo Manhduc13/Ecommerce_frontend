@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from '../../service/admin.service';
 import { AuthService } from '../../../../auth/service/auth/auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-product',
@@ -22,10 +24,11 @@ export class ProductComponent {
     private router: Router,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private adminService: AdminService
-  ){}
+    private adminService: AdminService,
+    public dialogRef: MatDialogRef<ProductComponent>
+  ) { }
 
-  onFileSelected(event: any){
+  onFileSelected(event: any) {
     if (event && event.target && event.target.files) {
       this.selectedFile = event.target.files[0];
       this.previewImage();
@@ -34,7 +37,7 @@ export class ProductComponent {
     }
   }
 
-  previewImage(){
+  previewImage() {
     if (this.selectedFile && this.selectedFile.type.startsWith('image/')) { // Check if the file is an image
       const reader = new FileReader();
       reader.onload = () => {
@@ -46,9 +49,9 @@ export class ProductComponent {
     }
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.addProductForm = this.fb.group({
-      categoryId: [null,[Validators.required]],
+      categoryId: [null, [Validators.required]],
       name: [null, [Validators.required]],
       price: [null, [Validators.required]],
       description: [null, [Validators.required]]
@@ -56,13 +59,13 @@ export class ProductComponent {
     this.getAllCategory();
   }
 
-  getAllCategory(){
+  getAllCategory() {
     this.authService.getAllCategory().subscribe(res => {
-       this.listOfCategories = res;
+      this.listOfCategories = res;
     })
   }
 
-  addProduct(){
+  addProduct() {
     const formData: FormData = new FormData();
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
@@ -76,12 +79,16 @@ export class ProductComponent {
     formData.append('category_id', this.addProductForm.get('categoryId')?.value);
 
     this.adminService.addProduct(formData).subscribe((res) => {
-      if(res.id != null){
-        this.snackBar.open('Product posted successfully', 'Close', {duration:5000});
+      if (res.id != null) {
+        this.snackBar.open('Product posted successfully', 'Close', { duration: 5000 });
         this.router.navigateByUrl('/admin/dashboard')
       } else {
-        this.snackBar.open(res.message, 'ERROR', {duration: 5000});
+        this.snackBar.open(res.message, 'ERROR', { duration: 5000 });
       }
     })
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth/auth.service';
-
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +18,8 @@ export class SignupComponent {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public dialogRef: MatDialogRef<SignupComponent>
   ) { }
 
   ngOnInit() {
@@ -54,5 +55,9 @@ export class SignupComponent {
         this.snackBar.open('Sign up failed. Please try it again!', 'Close', { duration: 5000, panelClass: 'error-snackbar' });
       }
     )
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

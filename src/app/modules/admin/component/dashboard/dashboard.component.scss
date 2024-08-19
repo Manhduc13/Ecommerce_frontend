@@ -1,8 +1,6 @@
 .container {
     display: flex;
     flex-direction: column;
-    //background-image: linear-gradient(#00c9e3, #00d1cb);
-    //background-size: cover;
     min-height: 100vh;
 }
 
@@ -22,6 +20,24 @@
     }
 
     .search-button {
+        background-color: white;
+        border: 1px solid black;
+        color: black;
+    }
+}
+
+.search-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+    margin-top: 10px;
+
+    .info {
+        margin-right: 10px;
+    }
+
+    .reset-button {
         background-color: white;
         border: 1px solid;
     }
@@ -102,7 +118,6 @@
                     font-size: 12px;
                     padding: 0;
                 }
-
             }
         }
     }

@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { StorageService } from './auth/service/storage/storage.service';
+import { SignupComponent } from './auth/component/signup/signup.component';
+import { LoginComponent } from './auth/component/login/login.component';
+import { ProductComponent } from './modules/admin/component/product/product.component';
+import { CategoryComponent } from './modules/admin/component/category/category.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +22,7 @@ export class AppComponent {
 
   constructor(
     private router: Router,
+    public dialog: MatDialog
   ) {
     this.name = StorageService.getUserName()
   }
@@ -29,6 +35,22 @@ export class AppComponent {
       }
     })
     console.log(this.name);
+  }
+  
+  openSignupDialog(): void {
+    this.dialog.open(SignupComponent);
+  }
+
+  openSigninDialog(): void {
+    this.dialog.open(LoginComponent);
+  }
+
+  openProductDialog(): void {
+    this.dialog.open(ProductComponent);
+  }
+
+  openCategoryDialog(): void {
+    this.dialog.open(CategoryComponent);
   }
 
   logout(){

@@ -11,6 +11,8 @@ export class DashboardComponent {
 
   products: any[] = [];
   searchProductForm!: FormGroup;
+  numberItemReturn: number | null = null;
+  listOfCategories: any = [];
 
   constructor(
     private authService: AuthService,
@@ -21,8 +23,10 @@ export class DashboardComponent {
     this.getAllProduct();
     console.log(this.products);
     this.searchProductForm = this.fb.group({
-      name: [null,[Validators.required]]
+      productName: [null],
+      categoryName: [null]
     })
+    this.getAllCategory();
   }
 
   getAllProduct() {
@@ -35,14 +39,31 @@ export class DashboardComponent {
     })
   }
 
+  getAllCategory(){
+    this.authService.getAllCategory().subscribe(res => {
+      this.listOfCategories = res;
+    })
+  }
+
   search(){
     this.products = [];
-    this.authService.findAllByName(this.searchProductForm.get('name')?.value).subscribe(res => {
+    console.log(this.searchProductForm.value);
+    this.authService.search(this.searchProductForm.value).subscribe(res => {
       console.log(res);
+      this.numberItemReturn = res.length;
       res.forEach((element: { processedImg: string; returnImage: string; }) => {
         element.processedImg = 'data:image/jpg;base64,' + element.returnImage;
         this.products.push(element);
       });
     })
+  }
+
+  reset(){
+    this.numberItemReturn = null;
+    this.searchProductForm.reset({
+      productName: null,
+      categoryName: null
+  });
+    this.getAllProduct();
   }
 }

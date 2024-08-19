@@ -4,7 +4,15 @@
         <form [formGroup]="searchProductForm" (submit)="search()">
             <mat-form-field appearance="outline" class="search-input">
                 <mat-label>Enter keyword to search</mat-label>
-                <input matInput formControlName="name">
+                <input matInput formControlName="productName">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Select a category</mat-label>
+                <mat-select formControlName="categoryName" name="categoryName">
+                    <mat-option *ngFor="let category of listOfCategories" [value]="category.name">
+                        {{category.name}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
             <button class='search-button' mat-button matSuffix color="primary"
                 [disabled]="searchProductForm.invalid">Search</button>
