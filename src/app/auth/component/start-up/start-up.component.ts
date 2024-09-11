@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-start-up',
@@ -9,46 +11,56 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class StartUpComponent {
 
-  products: any[] = [];
   searchProductForm!: FormGroup;
-  numberItemReturn: number | null = null;
+  products: any[] = [];
+  productNames: string[] = [];
+  filteredProductNames!: Observable<string[]>;
   listOfCategories: any = [];
 
-  constructor(  
+  constructor(
     private authService: AuthService,
     private fb: FormBuilder
-  ){}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getAllProduct();
     this.searchProductForm = this.fb.group({
-      productName: [null],
-      categoryName: [null]
+      productName: ['',Validators.required]
     })
-    this.getAllCategory();
+
+    this.filteredProductNames = this.searchProductForm.get('productName')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || ''))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.productNames.filter(name => name.toLowerCase().includes(filterValue));
   }
 
   getAllProduct() {
     this.products = [];
     this.authService.getAllProduct().subscribe(res => {
-      res.forEach((element: { processedImg: string; returnImage: string; }) => {
+      res.forEach((element: { processedImg: string; returnImage: string; name: string }) => {
         element.processedImg = 'data:image/jpg;base64,' + element.returnImage;
         this.products.push(element);
+        this.productNames.push(element.name);
       });
     })
   }
 
-  getAllCategory(){
+  getAllCategory() {
     this.authService.getAllCategory().subscribe(res => {
       this.listOfCategories = res;
     })
   }
 
-  search(){
+  getProductsByName(){
     this.products = [];
-    console.log(this.searchProductForm.value);
-    this.authService.search(this.searchProductForm.value).subscribe(res => {
-      this.numberItemReturn = res.length;
+    const name = this.searchProductForm.get('productName')!.value;
+    this.authService.getProductsByName(name).subscribe(res => {
+      console.log(res);
       res.forEach((element: { processedImg: string; returnImage: string; }) => {
         element.processedImg = 'data:image/jpg;base64,' + element.returnImage;
         this.products.push(element);
@@ -56,12 +68,10 @@ export class StartUpComponent {
     })
   }
 
-  reset(){
-    this.numberItemReturn = null;
+  reset() {
     this.searchProductForm.reset({
-      productName: null,
-      categoryName: null
-  });
+      productName: null
+    });
     this.getAllProduct();
   }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../../auth/service/auth/auth.service';
+import { map, Observable, startWith } from 'rxjs';
+import { AdminService } from '../../service/admin.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +11,14 @@ import { AuthService } from '../../../../auth/service/auth/auth.service';
 })
 export class DashboardComponent {
 
-  products: any[] = [];
   searchProductForm!: FormGroup;
-  numberItemReturn: number | null = null;
+  products: any[] = [];
+  productNames: string[] = [];
+  filteredProductNames!: Observable<string[]>;
   listOfCategories: any = [];
 
   constructor(
-    private authService: AuthService,
+    private adminService: AdminService,
     private fb: FormBuilder
   ) { }
 
@@ -23,34 +26,35 @@ export class DashboardComponent {
     this.getAllProduct();
     console.log(this.products);
     this.searchProductForm = this.fb.group({
-      productName: [null],
-      categoryName: [null]
+      productName: ['',Validators.required]
     })
-    this.getAllCategory();
+    this.filteredProductNames = this.searchProductForm.get('productName')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || ''))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.productNames.filter(name => name.toLowerCase().includes(filterValue));
   }
 
   getAllProduct() {
     this.products = [];
-    this.authService.getAllProduct().subscribe(res => {
-      res.forEach((element: { processedImg: string; returnImage: string; }) => {
+    this.adminService.getAllProduct().subscribe(res => {
+      res.forEach((element: { processedImg: string; returnImage: string; name: string }) => {
         element.processedImg = 'data:image/jpg;base64,' + element.returnImage;
         this.products.push(element);
+        this.productNames.push(element.name);
       });
     })
   }
 
-  getAllCategory(){
-    this.authService.getAllCategory().subscribe(res => {
-      this.listOfCategories = res;
-    })
-  }
-
-  search(){
+  getProductsByName(){
     this.products = [];
-    console.log(this.searchProductForm.value);
-    this.authService.search(this.searchProductForm.value).subscribe(res => {
+    const name = this.searchProductForm.get('productName')!.value;
+    this.adminService.getProductsByName(name).subscribe(res => {
       console.log(res);
-      this.numberItemReturn = res.length;
       res.forEach((element: { processedImg: string; returnImage: string; }) => {
         element.processedImg = 'data:image/jpg;base64,' + element.returnImage;
         this.products.push(element);
@@ -59,10 +63,8 @@ export class DashboardComponent {
   }
 
   reset(){
-    this.numberItemReturn = null;
     this.searchProductForm.reset({
-      productName: null,
-      categoryName: null
+      productName: null
   });
     this.getAllProduct();
   }

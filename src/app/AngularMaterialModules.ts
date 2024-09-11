@@ -18,6 +18,8 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatTableModule } from "@angular/material/table";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AsyncPipe } from '@angular/common';
 
 @NgModule({
     exports:[
@@ -40,6 +42,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
         MatDialogModule,
         MatTableModule,
         MatSlideToggleModule,
+        MatAutocompleteModule,
     ]
 })
 

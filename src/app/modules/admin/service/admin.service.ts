@@ -20,10 +20,28 @@ export class AdminService {
     return this.http.post(url, categoryRequest, { headers });
   }
 
+  getAllCategory(): Observable<any> {
+    const url = `${BASE_URL}/category`;
+    const headers = this.createAuthorizationHeader();
+    return this.http.get(url, {headers});
+  }
+
   addProduct(productRequest: any): Observable<any> {
     const url = `${BASE_URL}/product`;
     const headers = this.createAuthorizationHeader();
     return this.http.post(url, productRequest, { headers });
+  }
+
+  getAllProduct(): Observable<any> {
+    const url = `${BASE_URL}/product`;
+    const headers = this.createAuthorizationHeader();
+    return this.http.get(url, {headers});
+  }
+
+  getProductsByName(name: any): Observable<any>{
+    const url = `${BASE_URL}/search/${name}`;
+    const headers = this.createAuthorizationHeader();
+    return this.http.get(url,{headers}) 
   }
 
   private createAuthorizationHeader(): HttpHeaders {

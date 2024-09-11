@@ -1,52 +1,41 @@
 <div class="container">
-
     <div class="search-form">
-        <form [formGroup]="searchProductForm">
-
-            <mat-form-field appearance="outline" class="search-input">
-                <mat-label>Enter keyword to search</mat-label>
-                <input matInput formControlName="productName">
-                <mat-icon matSuffix (click)="search()">search</mat-icon>
-            </mat-form-field>
-
+        <form [formGroup]="searchProductForm" (ngSubmit)="getProductsByName()">
             <mat-form-field appearance="outline">
-                <mat-label>Select a category</mat-label>
-                <mat-select formControlName="categoryName" name="categoryName">
-                    <mat-option *ngFor="let category of listOfCategories" [value]="category.name">
-                        {{category.name}}
+                <mat-label>Enter keyword to search</mat-label>
+                <button mat-button matPrefix color="primary" [disabled]="searchProductForm.invalid">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <input type="text" matInput formControlName="productName" [matAutocomplete]="auto">
+                <button mat-button matSuffix color="primary" [disabled]="searchProductForm.invalid" (click)="reset()">
+                    <mat-icon>clear</mat-icon>
+                </button>
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let name of filteredProductNames | async" [value]="name">
+                        {{name}}
                     </mat-option>
-                </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
-
-            <button class='search-button' mat-button matSuffix color="primary" (click)="search()"
-                [disabled]="searchProductForm.invalid">Search</button>
-
         </form>
     </div>
-
-    <div class="search-info" *ngIf="numberItemReturn!=null">
-        <div class="info">There are {{numberItemReturn}} products you might want to see</div>
-        <button class='reset-button' mat-button matSuffix color="primary" (click)="reset()">Reset</button>
-    </div>
-
     <div class="product-list">
         <mat-card class="product-card" *ngFor="let product of products">
-            <div class="product-image">
+            <div class="product-img">
                 <img [src]="product.processedImg" alt="product-image">
             </div>
-            <div class="product-detail">
-                <h2 class="product-name">{{product.name}}</h2>
-                <p class="product-description">{{product.description}}</p>
+            <div class="product-info">
+                <div class="title">{{product.name}}</div>
+                <div class="description">{{product.description}}</div>
 
                 <mat-divider></mat-divider>
 
-                <div class="product-info">
-                    <div class="info-row">
-                        <span class="info-label">Price:</span>
-                        <span class="info-value">{{product.price}}VNĐ</span>
+                <div class="price_category">
+                    <div class="price">
+                        <span class="info-label">Price: </span>
+                        <span class="info-value">{{product.price}}</span>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Category:</span>
+                    <div class="category">
+                        <span class="info-label">Category: </span>
                         <span class="info-value">{{product.category_name}}</span>
                     </div>
                 </div>

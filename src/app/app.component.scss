@@ -1,29 +1,3 @@
-.contact {
-    display: flex;
-    align-items: center;
-    background-color: black;
-    height: auto;
-    position: fixed;
-    bottom: 0;
-
-    p {
-        font-size: 15px;
-        color: white;
-        margin-right: 20px;
-        margin-bottom: 0;
-
-        a {
-            font-size: 15px;
-            text-decoration: none;
-            color: white;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    }
-}
-
 .header {
     width: 100%;
 
